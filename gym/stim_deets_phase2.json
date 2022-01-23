@@ -1,0 +1,338 @@
+{
+  "Cli": [
+    {
+      "name": "Clia1n",
+      "type": "concrete",
+      "train": false,
+      "style": "Cli",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Clia1n.jpeg"
+    },
+    {
+      "name": "Clifb1",
+      "type": "concrete",
+      "train": false,
+      "style": "Cli",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Clifb1.jpeg"
+    },
+    {
+      "name": "Clib2n",
+      "type": "intermediate",
+      "train": false,
+      "style": "Cli",
+      "phase": 2,
+      "value": 0,
+      "path": "Clib2n.jpeg"
+    },
+    {
+      "name": "Clifb2",
+      "type": "intermediate",
+      "train": false,
+      "style": "Cli",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Clifb2.jpeg"
+    },
+    {
+      "name": "Clifa3",
+      "type": "abstract",
+      "train": false,
+      "style": "Cli",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Clifa3.jpeg"
+    },
+    {
+      "name": "Clifb3",
+      "type": "abstract",
+      "train": false,
+      "style": "Cli",
+      "phase": 2,
+      "value": 0,
+      "path": "Clifb3.jpeg"
+    }
+  ],
+  "Dek": [
+    {
+      "name": "Dekb1n",
+      "type": "concrete",
+      "train": false,
+      "style": "Dek",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Dekb1n.jpeg"
+    },
+    {
+      "name": "Dekob1",
+      "type": "concrete",
+      "train": false,
+      "style": "Dek",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Dekob1.jpeg"
+    },
+    {
+      "name": "Dekb2n",
+      "type": "intermediate",
+      "train": false,
+      "style": "Dek",
+      "phase": 2,
+      "value": 0,
+      "path": "Dekb2n.jpeg"
+    },
+    {
+      "name": "Dekob2",
+      "type": "intermediate",
+      "train": false,
+      "style": "Dek",
+      "phase": 2,
+      "value": 0,
+      "path": "Dekob2.jpeg"
+    },
+    {
+      "name": "Dekb3n",
+      "type": "abstract",
+      "train": false,
+      "style": "Dek",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Dekb3n.jpeg"
+    },
+    {
+      "name": "Dekoa3",
+      "type": "abstract",
+      "train": false,
+      "style": "Dek",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Dekoa3.jpeg"
+    }
+  ],
+  "Kra": [
+    {
+      "name": "Kraa1n",
+      "type": "concrete",
+      "train": false,
+      "style": "Kra",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Kraa1n.jpeg"
+    },
+    {
+      "name": "Krab1n",
+      "type": "concrete",
+      "train": false,
+      "style": "Kra",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Krab1n.jpeg"
+    },
+    {
+      "name": "Kraa2n",
+      "type": "intermediate",
+      "train": false,
+      "style": "Kra",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Kraa2n.jpeg"
+    },
+    {
+      "name": "Krasa2",
+      "type": "intermediate",
+      "train": false,
+      "style": "Kra",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Krasa2.jpeg"
+    },
+    {
+      "name": "Kraa3n",
+      "type": "abstract",
+      "train": false,
+      "style": "Kra",
+      "phase": 2,
+      "value": 0,
+      "path": "Kraa3n.jpeg"
+    },
+    {
+      "name": "Krasb3",
+      "type": "abstract",
+      "train": false,
+      "style": "Kra",
+      "phase": 2,
+      "value": 0,
+      "path": "Krasb3.jpeg"
+    }
+  ],
+  "Mon": [
+    {
+      "name": "Monda1",
+      "type": "concrete",
+      "train": false,
+      "style": "Mon",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Monda1.jpeg"
+    },
+    {
+      "name": "Mondb1",
+      "type": "concrete",
+      "train": false,
+      "style": "Mon",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Mondb1.jpeg"
+    },
+    {
+      "name": "Mona2n",
+      "type": "intermediate",
+      "train": false,
+      "style": "Mon",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Mona2n.jpeg"
+    },
+    {
+      "name": "Monda2",
+      "type": "intermediate",
+      "train": false,
+      "style": "Mon",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Monda2.jpeg"
+    },
+    {
+      "name": "Mona3n",
+      "type": "abstract",
+      "train": false,
+      "style": "Mon",
+      "phase": 2,
+      "value": 0,
+      "path": "Mona3n.jpeg"
+    },
+    {
+      "name": "Monda3",
+      "type": "abstract",
+      "train": false,
+      "style": "Mon",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Monda3.jpeg"
+    }
+  ],
+  "Roh": [
+    {
+      "name": "Rohb1n",
+      "type": "concrete",
+      "train": false,
+      "style": "Roh",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Rohb1n.jpeg"
+    },
+    {
+      "name": "Rohlb1",
+      "type": "concrete",
+      "train": false,
+      "style": "Roh",
+      "phase": 2,
+      "value": 0,
+      "path": "Rohlb1.jpeg"
+    },
+    {
+      "name": "Roha2n",
+      "type": "intermediate",
+      "train": false,
+      "style": "Roh",
+      "phase": 2,
+      "value": 0,
+      "path": "Roha2n.jpeg"
+    },
+    {
+      "name": "Rohb2n",
+      "type": "intermediate",
+      "train": false,
+      "style": "Roh",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Rohb2n.jpeg"
+    },
+    {
+      "name": "Roha3n",
+      "type": "abstract",
+      "train": false,
+      "style": "Roh",
+      "phase": 2,
+      "value": 0,
+      "path": "Roha3n.jpeg"
+    },
+    {
+      "name": "Rohlb3",
+      "type": "abstract",
+      "train": false,
+      "style": "Roh",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Rohlb3.jpeg"
+    }
+  ],
+  "Rot": [
+    {
+      "name": "Rotha1",
+      "type": "concrete",
+      "train": false,
+      "style": "Rot",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Rotha1.jpeg"
+    },
+    {
+      "name": "Rothb1",
+      "type": "concrete",
+      "train": false,
+      "style": "Rot",
+      "phase": 2,
+      "value": 0.2,
+      "path": "Rothb1.jpeg"
+    },
+    {
+      "name": "Rota2n",
+      "type": "intermediate",
+      "train": false,
+      "style": "Rot",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Rota2n.jpeg"
+    },
+    {
+      "name": "Rotha2",
+      "type": "intermediate",
+      "train": false,
+      "style": "Rot",
+      "phase": 2,
+      "value": -0.2,
+      "path": "Rotha2.jpeg"
+    },
+    {
+      "name": "Rotb3n",
+      "type": "abstract",
+      "train": false,
+      "style": "Rot",
+      "phase": 2,
+      "value": 0,
+      "path": "Rotb3n.jpeg"
+    },
+    {
+      "name": "Rothb3",
+      "type": "abstract",
+      "train": false,
+      "style": "Rot",
+      "phase": 2,
+      "value": 0,
+      "path": "Rothb3.jpeg"
+    }
+  ]
+}
