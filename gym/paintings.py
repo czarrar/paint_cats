@@ -1,4 +1,4 @@
-#%%
+ #%%
 import os
 import numpy as np
 from glob import glob
@@ -19,7 +19,11 @@ HEIGHT=300
 WIDTH=300
 N_CHANNELS=3
 
-BASE_PATH='./'
+from pathlib import Path
+FILE = Path(__file__).resolve()
+BASE_PATH=str(FILE.parents[0])
+#print(BASE_PATH)
+#BASE_PATH='./'
 #BASE_PATH='gym/'
 
 #%%
@@ -27,10 +31,12 @@ class PaintingEnv(gym.Env):
     """Custom Environment that follows gym interface"""
     metadata = {'render.modes': ['human']}
 
-    def __init__(self):
+    def __init__(self, state_type="pixels"):
+        """state_type can be pixels, object"""
         super(PaintingEnv, self).__init__()
 
         self.viewer = None
+        self.state_type = state_type
 
         # Left, Right
         self.action_space = spaces.Discrete(2)
@@ -156,7 +162,7 @@ class PaintingEnv(gym.Env):
         new_im.paste(resized_imgs[1], (425,140))
 
         # Add on the reward values
-        font = ImageFont.truetype(f"{BASE_PATH}/Arial.ttf", 30)
+        font = ImageFont.truetype(os.path.join(BASE_PATH, "Arial.ttf"), 30)
         draw = ImageDraw.Draw(new_im)
         rsize1 = draw.textsize(f"({rewards[0]})", font=font)
         draw.text((75 + int((300-rsize1[0])/2), 450), f"({rewards[0]})", (0,0,0), font=font)
@@ -212,7 +218,7 @@ def load_image(fn):
 def load_data(artist_to_val=None):
     # Loads the basic info for each stimulus
     # dat is a dictionary of dictionaries
-    with open(f"{BASE_PATH}/stim_deets_phase1.json") as f:
+    with open(os.path.join(BASE_PATH, "stim_deets_phase1.json")) as f:
         dat = json.load(f)
 
     # dat['Cli'][0].keys() => name, type, train, style, phase, value, path
@@ -293,7 +299,7 @@ def load_data(artist_to_val=None):
 
     # Update the path to have 'stimuli'
     for k in paintings:
-        paintings[k]['path'] = BASE_PATH + "stimuli/" + paintings[k]['path']
+        paintings[k]['path'] = os.path.join(BASE_PATH, "stimuli", paintings[k]['path'])
 
     # paintings[all_pairs[0][0]]
 
