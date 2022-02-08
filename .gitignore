@@ -1,5 +1,8 @@
 .DS_Store
 
+# My virtual environment
+myenv_paintcats
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

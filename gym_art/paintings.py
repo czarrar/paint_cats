@@ -12,6 +12,11 @@ import json
 import random
 import itertools
 
+from tensorflow.keras.applications import InceptionV3
+from tensorflow.keras.preprocessing import image
+from keras.applications.inception_v3 import preprocess_input
+from tensorflow.keras.models import Model
+
 import gym
 from gym import spaces
 
@@ -21,6 +26,7 @@ N_CHANNELS=3
 
 from pathlib import Path
 FILE = Path(__file__).resolve()
+#FILE = Path('gym_art/paintings.py').resolve()
 BASE_PATH=str(FILE.parents[0])
 #print(BASE_PATH)
 #BASE_PATH='./'
@@ -34,6 +40,9 @@ class PaintingEnv(gym.Env):
     def __init__(self, state_type="pixels"):
         """state_type can be pixels, object"""
         super(PaintingEnv, self).__init__()
+
+        if state_type not in ['pixels', 'object']:
+            raise ValueError(f"state_type must be pixels or object but given {state_type}")
 
         self.viewer = None
         self.state_type = state_type
@@ -52,6 +61,9 @@ class PaintingEnv(gym.Env):
         # - painting_pairs: list of tuples containing the id of each painting pair
         self.artist_to_val, self.paintings, self.painting_pairs = load_data()
 
+        # Pre-load in the states
+        self.states = self._load_states()
+
         # Note: each element of self.painting is
         #
         # name, type (concrete, intermediate, abstract), train (true or false)
@@ -64,6 +76,22 @@ class PaintingEnv(gym.Env):
 
         return
 
+    def _load_states(self):
+        """
+        Returns a dictionary of painting ids and states. States can be the image
+        or Inception output depending on the value of `self.state_type`
+        """
+        # Load all of the paintings
+        # Potentially also process depending on the settings
+        ims = { pid: load_image(pinfo['path']) for pid, pinfo in self.paintings.items() }
+
+        if self.state_type == 'pixels':
+            states = ims
+        elif self.state_type == 'object':
+            nn_out = inception_top_layer([ im for im in ims.values() ])
+            states = { pid : nn_out[i,:] for i,pid in enumerate(self.paintings) }
+
+        return states
 
     def step(self, action):
         """
@@ -108,7 +136,7 @@ class PaintingEnv(gym.Env):
             self.curr_trial += 1
             left_id, right_id = self.painting_pairs[self.curr_trial]
             left_painting, right_painting = self.paintings[left_id], self.paintings[right_id]
-            next_state = (load_image(left_painting['path']), load_image(right_painting['path']))
+            next_state = (self.states[left_id], self.states[right_id])
             trial_type = 'same artist' if left_painting['style'] == right_painting['style'] else 'different artist'
             info = {'left': left_painting, 'right': right_painting, 'trial_type': trial_type}
 
@@ -127,7 +155,8 @@ class PaintingEnv(gym.Env):
         #super().reset(seed=seed)
         # Reset the state of the environment to an initial state
         artist_to_val = None if full_reset else self.artist_to_val
-        self.artist_to_val, self.paintings, self.painting_pairs = load_data(artist_to_val)
+        self.artist_to_val, self.paintings, self.painting_pairs = load_data(artist_to_val) # Load the data
+        self.states = self._load_states() # Pre-load in the states
         self.curr_trial = -1
         return self.step(0)
 
@@ -304,6 +333,33 @@ def load_data(artist_to_val=None):
     # paintings[all_pairs[0][0]]
 
     return artist_to_val, paintings, all_pairs
+
+
+#%% Object Recognition
+def preprocess_for_inception(im):
+    img = im.resize((299,299))
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_input(x)
+    return x
+
+def inception_top_layer(ims):
+    # Setup model
+    base_model = InceptionV3(weights='imagenet')
+    model = Model(inputs=base_model.input, outputs=base_model.get_layer('mixed10').output)
+
+    # Preprocess
+    xs = [ preprocess_for_inception(Image.fromarray(im)) for im in ims ]
+    xs = np.vstack(xs)
+
+    # Run model
+    nn_out = model.predict(xs)
+
+    # Do Max-Pooling across the 8x8 output
+    nn_out = nn_out.reshape((nn_out.shape[0],-1,nn_out.shape[-1]))
+    nn_out = nn_out.max(axis=1)
+
+    return nn_out
 
 #%% Extra
 def tester():
