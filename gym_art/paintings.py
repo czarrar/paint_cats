@@ -62,7 +62,7 @@ class PaintingEnv(gym.Env):
         self.artist_to_val, self.paintings, self.painting_pairs = load_data()
 
         # Pre-load in the states
-        self.states = self._load_states()
+        self.states = self._load_states(self.paintings)
 
         # Note: each element of self.painting is
         #
@@ -76,20 +76,20 @@ class PaintingEnv(gym.Env):
 
         return
 
-    def _load_states(self):
+    def _load_states(self, paintings):
         """
         Returns a dictionary of painting ids and states. States can be the image
         or Inception output depending on the value of `self.state_type`
         """
         # Load all of the paintings
         # Potentially also process depending on the settings
-        ims = { pid: load_image(pinfo['path']) for pid, pinfo in self.paintings.items() }
+        ims = { pid: load_image(pinfo['path']) for pid, pinfo in paintings.items() }
 
         if self.state_type == 'pixels':
             states = ims
         elif self.state_type == 'object':
             nn_out = inception_top_layer([ im for im in ims.values() ])
-            states = { pid : nn_out[i,:] for i,pid in enumerate(self.paintings) }
+            states = { pid : nn_out[i,:] for i,pid in enumerate(paintings) }
 
         return states
 
@@ -156,7 +156,7 @@ class PaintingEnv(gym.Env):
         # Reset the state of the environment to an initial state
         artist_to_val = None if full_reset else self.artist_to_val
         self.artist_to_val, self.paintings, self.painting_pairs = load_data(artist_to_val) # Load the data
-        self.states = self._load_states() # Pre-load in the states
+        self.states = self._load_states(self.paintings) # Pre-load in the states
         self.curr_trial = -1
         return self.step(0)
 
@@ -244,10 +244,13 @@ def load_image(fn):
     # One question is if I want
 
 #%% Load data
-def load_data(artist_to_val=None):
+def load_data(artist_to_val=None, dset=1):
+    if dset not in [1,2]:
+        raise ValueError("dset must be 1 or 2")
+
     # Loads the basic info for each stimulus
     # dat is a dictionary of dictionaries
-    with open(os.path.join(BASE_PATH, "stim_deets_phase1.json")) as f:
+    with open(os.path.join(BASE_PATH, f"stim_deets_phase{dset}.json")) as f:
         dat = json.load(f)
 
     # dat['Cli'][0].keys() => name, type, train, style, phase, value, path
